@@ -45,10 +45,19 @@ export default StyleSheet.create({
   bodyModal: {
     width: '70%',
     height: '50%',
+    gap: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'blue',
+    backgroundColor: '#F9CB90',
     borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   modalStyle: {
     flex: 1,

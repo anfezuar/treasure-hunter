@@ -1,37 +1,60 @@
 import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  View,
-  TextInput,
-} from 'react-native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {Text, TouchableOpacity, View, TextInput, Image} from 'react-native';
 
-import bgHome from '../../assets/bgHome.png';
+import treasureImage from '../../assets/treasure.png';
+import treasureHunterImage from '../../assets/treasureHunter.png';
 import styles from './styles';
+import {Screens} from '../../constants';
+import {ParamsList} from '../../components/AppNavigator/interfaces';
+import BackgroundScreen from '../../components/BackgroundScreen';
 
 const Home = () => {
-  const navigation = useNavigation();
-  const [codigo, setCodigo] = useState('123456');
+  const navigation = useNavigation<NavigationProp<ParamsList>>();
+  const [code, setCode] = useState('123456');
 
-  const handleJugar = () => {
-    navigation.navigate('Clue', {clueId: 1});
+  const handlePlay = () => {
+    navigation.navigate(Screens.CLUE, {clueId: 1});
   };
+  const handleNewGame = () => {
+    navigation.navigate(Screens.NEW_GAME);
+  };
+
   return (
-    <ImageBackground source={bgHome} style={styles.bgImage} resizeMode="center">
+    <BackgroundScreen>
       <View style={styles.content}>
-        <Text style={styles.title}>{'Código'}</Text>
-        <TextInput
-          value={codigo}
-          onChangeText={setCodigo}
-          style={styles.inputStyle}
-        />
-        <TouchableOpacity onPress={handleJugar} style={styles.buttonStyle}>
-          <Text>{'Jugar'}</Text>
-        </TouchableOpacity>
+        <View>
+          <Image
+            source={treasureImage}
+            resizeMode="contain"
+            style={styles.imageStyle}
+          />
+          <View style={styles.logoContainer}>
+            <Image
+              source={treasureHunterImage}
+              resizeMode="contain"
+              style={styles.imageTextStyle}
+            />
+          </View>
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.title}>{'Código del juego'}</Text>
+          <TextInput
+            value={code}
+            onChangeText={setCode}
+            style={styles.inputStyle}
+          />
+          <TouchableOpacity onPress={handlePlay} style={styles.buttonStyle}>
+            <Text style={styles.buttonTextStyle}>{'Jugar'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleNewGame}
+            style={styles.seccondButtonStyle}>
+            <Text style={styles.buttonTextStyle}>{'Nuevo juego'}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </ImageBackground>
+    </BackgroundScreen>
   );
 };
 
